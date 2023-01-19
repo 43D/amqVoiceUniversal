@@ -257,7 +257,7 @@ function modalFactory() {
 
         let btn = document.createElement("button");
         btn.style.fontSize = "25pt";
-        btn.color = "black";
+        btn.style.color = "black";
         btn.innerHTML = "Fechar";
         btn.onclick = () => { closeModal() };
 
