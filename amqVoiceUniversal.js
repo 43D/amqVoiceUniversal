@@ -16,6 +16,8 @@ let loadInterval = setInterval(() => {
     }
 }, 500);
 
+const body = document.getElementsByTagName("body")[0];
+
 var v;
 var x = true;
 
@@ -150,8 +152,17 @@ function setup() {
 }
 
 function interface(){
-    //socialTab
-    const body = document.getElementsByTagName("body")[0];
+    modalSettings();
+    buttonSettings();
+}
+
+function modalSettings(){
+    let div = document.createElement("div");
+    
+    body.appendChild(div);
+}
+
+function buttonSettings(){
     let div = document.createElement("div");
     let btn = document.createElement("button");
     btn.innerHTML = "Voice Settings";
