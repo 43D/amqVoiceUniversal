@@ -200,7 +200,7 @@ function modalFactory() {
         modal.style.width = "700px";
         modal.style.zIndex = "999999999";
         modal.style.right = "calc(50% - 350px)";
-        modal.style.backgroundColor = "#1b1b1b";
+        modal.style.backgroundColor = "#131313";
         modal.style.display = "none";
         modal.id = "modalVoice"
     }
