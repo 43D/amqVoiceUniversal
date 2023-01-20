@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      0.1
+// @version      0.2.alpha
 // @description  Voice
 // @author       43D
 // @match        https://animemusicquiz.com/
