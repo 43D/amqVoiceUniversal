@@ -196,7 +196,8 @@ function modalFactory() {
         styleDiv();
         body.appendChild(modal);
         $("#modalVoice").load("https://raw.githubusercontent.com/43D/amqVoiceUniversal/main/index.html");
-        $(".close").click(() => closeModal());
+        console.log($(".closeModal"));
+        $(".closeModal").click(() => closeModal());
     }
 
     function styleDiv() {
