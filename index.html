@@ -6,7 +6,7 @@
 	<hr style="margin: 5px 0px 15px">
 	<div>
 		<div style="display: flex; justify-content: center; margin-bottom: 10px;">
-			<select name="select" style="font-size: 16pt; background-color: #424242; color: #fff;">
+			<select id="voiceSelect" name="select" style="font-size: 16pt; background-color: #424242; color: #fff;">
 				<option value="Welcome1" selected>Welcome (00:00-08:00)</option>
 				<option value="Welcome2">Welcome (08:00-12:00)</option>
 				<option value="Welcome3">Welcome (12:00-18:00)</option>
@@ -24,22 +24,23 @@
 			</select>
 		</div>
 		<div>
-			<input style="font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="text" placeholder="https://.mp3">
+			<input id="voiceLink" style="font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="text" placeholder="https://.mp3">
 			<span>OR</span>
-			<input style="font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="file" accept=".mp3">
+			<input id="voiceFile" style="font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="file" accept=".mp3">
 		</div>
 		<div style="display: flex; justify-content: center;">
 			<p style="margin: 2px 5px;">Volume:</p>
-			<input type="range" min="0" max="100" value="100">
+			<input id="voiceVolume" style="width: 60%;" type="range" min="0" max="100" value="100">
+			<p style="margin: 2px 5px;">Audio Timer: <span id="VoiceTimer">00:00</span></p>
 		</div>
 		<div style="display: flex; justify-content: space-evenly; margin-top: 25px;">
-			<button style="font-size: 16pt; background-color: #424242; color: #fff;">Play current audio</button>
-			<button style="font-size: 16pt; background-color: #424242; color: #fff;">Salvar</button>
+			<button id="voicePlayCurrent" style="font-size: 16pt; background-color: #424242; color: #fff;">Play current audio</button>
+			<button id="voiceSave" style="font-size: 16pt; background-color: #424242; color: #fff;">Salvar</button>
 		</div>
 
 	</div>
 	<div>
-		<p style="text-align: center;"><span id="saveStatus"></span></p>
+		<p style="text-align: center;"><span id="voiceSaveStatus"></span></p>
 	</div>
 	<hr style="margin: 5px 0px 15px">
 	<div style="display: flex; margin-top: 25px; justify-content: center;">
