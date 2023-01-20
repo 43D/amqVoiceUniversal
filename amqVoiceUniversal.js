@@ -17,7 +17,7 @@ let loadInterval = setInterval(() => {
 }, 500);
 
 const body = document.getElementsByTagName("body")[0];
-let modal;
+let modal = modalFactory().get();
 
 var v;
 var x = true;
@@ -154,12 +154,8 @@ function setup() {
 }
 
 function interface() {
-    modalSettings();
     buttonSettings();
-}
-
-function modalSettings() {
-    modal = modalFactory().get();
+    $(".closeModal").click(() => closeModal());
 }
 
 function buttonSettings() {
@@ -177,6 +173,7 @@ function buttonSettings() {
     btn.onclick = () => { openModal() };
     div.appendChild(btn);
     body.appendChild(div);
+
 }
 
 function openModal() {
@@ -195,9 +192,7 @@ function modalFactory() {
     function init() {
         styleDiv();
         body.appendChild(modal);
-        $("#modalVoice").load("https://raw.githubusercontent.com/43D/amqVoiceUniversal/main/index.html");
-        console.log($(".closeModal"));
-        $(".closeModal").click(() => closeModal());
+        $("#modalVoice").load("https://43d.github.io/amqVoiceUniversal/index.html");
     }
 
     function styleDiv() {
