@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      0.2.alpha
+// @version      0.3.alpha
 // @description  Voice
 // @author       43D
 // @match        https://animemusicquiz.com/
@@ -166,7 +166,7 @@ function buttonSettings() {
     div.style.bottom = "50px";
     div.style.zIndex = "9999999";
     btn.style.color = "white";
-    btn.style.backgroundColor = "#1b1b1b";
+    btn.style.backgroundColor = "#131313";
     btn.style.fontSize = "14pt";
     btn.style.width = "200px";
     btn.style.height = "40px";
