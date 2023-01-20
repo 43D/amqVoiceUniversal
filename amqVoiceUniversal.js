@@ -198,11 +198,9 @@ function modalFactory() {
     function styleDiv() {
         modal.style.position = "absolute"
         modal.style.width = "700px";
-        modal.style.height = "100vh";
         modal.style.zIndex = "999999999";
         modal.style.right = "calc(50% - 350px)";
         modal.style.backgroundColor = "#1b1b1b";
-        modal.style.color = "white";
         modal.style.overflowX = "hidden";
         modal.style.overflowY = "scroll"
         modal.style.whiteSpace = "nowrap";
