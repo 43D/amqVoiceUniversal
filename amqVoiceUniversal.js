@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      0.3.alpha
+// @version      0.3.1.alpha
 // @description  Voice
 // @author       43D
 // @match        https://animemusicquiz.com/
@@ -197,9 +197,9 @@ function modalFactory() {
 
     function styleDiv() {
         modal.style.position = "absolute"
-        modal.style.width = "700px";
+        modal.style.width = "60%";
         modal.style.zIndex = "999999999";
-        modal.style.right = "calc(50% - 350px)";
+        modal.style.right = "20%";
         modal.style.backgroundColor = "#131313";
         modal.style.display = "none";
         modal.id = "modalVoice"
