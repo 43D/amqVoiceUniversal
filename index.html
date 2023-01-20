@@ -28,10 +28,14 @@
 			<span>OR</span>
 			<input id="voiceFile" style="font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="file" accept=".mp3">
 		</div>
-		<div style="display: flex; justify-content: center;">
-			<p style="margin: 2px 5px;">Volume:</p>
-			<input id="voiceVolume" style="width: 60%;" type="range" min="0" max="100" value="100">
-			<p style="margin: 2px 5px;">Audio Timer: <span id="VoiceTimer">00:00</span></p>
+		<div style="display: flex; justify-content: space-around;">
+			<div style="display: flex; width: 30%;">
+				<p style="margin: 2px 5px;">Volume:</p>
+				<input id="voiceVolume" style="width: 100%;" type="range" min="0" max="100" value="100">
+			</div>
+			<p style="margin: 2px 5px;">Audio Timer:
+				<span id="VoiceTimer">00:00</span>
+			</p>
 		</div>
 		<div style="display: flex; justify-content: space-evenly; margin-top: 25px;">
 			<button id="voicePlayCurrent" style="font-size: 16pt; background-color: #424242; color: #fff;">Play current audio</button>
@@ -40,7 +44,9 @@
 
 	</div>
 	<div>
-		<p style="text-align: center;"><span id="voiceSaveStatus"></span></p>
+		<p style="text-align: center;">
+			<span id="voiceSaveStatus"></span>
+		</p>
 	</div>
 	<hr style="margin: 5px 0px 15px">
 	<div style="display: flex; margin-top: 25px; justify-content: center;">
