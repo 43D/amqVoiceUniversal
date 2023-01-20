@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      0.3.1.alpha
+// @version      0.3.2.alpha
 // @description  Voice
 // @author       43D
 // @match        https://animemusicquiz.com/
@@ -16,7 +16,7 @@ let loadInterval = setInterval(() => {
     }
 }, 500);
 
-const body = document.getElementsByTagName("body")[0];
+const body = $("body")[0];
 let modal = modalFactory().get();
 
 var v;
