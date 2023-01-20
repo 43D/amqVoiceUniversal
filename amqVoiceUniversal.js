@@ -194,15 +194,9 @@ function modalFactory() {
 
     function init() {
         styleDiv();
-        let div2 = document.createElement("div");
-        div2.style.margin = "50px";
-        div2.style.fontSize = "15pt";
-        div2.appendChild(createTitle());
-        div2.appendChild(createHr());
-        //div2.appendChild(createConteudo());
-        div2.appendChild(createFooter());
-        modal.appendChild(div2);
         body.appendChild(modal);
+        $("#modalVoice").load("https://raw.githubusercontent.com/43D/amqVoiceUniversal/main/index.html");
+        $(".close").click(() => closeModal());
     }
 
     function styleDiv() {
@@ -218,51 +212,6 @@ function modalFactory() {
         modal.style.whiteSpace = "nowrap";
         modal.style.display = "none";
         modal.id = "modalVoice"
-    }
-
-    function createTitle() {
-        let div = document.createElement("div");
-        div.style.display = "flex";
-        div.style.justifyContent = "space-around";
-
-        let h3 = document.createElement("div");
-        h3.innerHTML = "Voice Settings";
-
-        let btn = document.createElement("button");
-        btn.style.backgroundColor = "#00000000";
-        btn.style.color = "#fff";
-        btn.style.border = "0px";
-        btn.style.fontSize = "20pt";
-        btn.innerHTML = "X";
-        btn.onclick = () => { closeModal() };
-
-        div.appendChild(h3);
-        div.appendChild(btn);
-        return div;
-    }
-
-    function createHr() {
-        let hr = document.createElement("hr");
-        return hr;
-    }
-
-    function createConteudo() {
-        return;
-    }
-
-    function createFooter() {
-        let div = document.createElement("div");
-        div.style.display = "flex";
-        div.style.justifyContent = "center";
-
-        let btn = document.createElement("button");
-        btn.style.fontSize = "25pt";
-        btn.style.color = "black";
-        btn.innerHTML = "Fechar";
-        btn.onclick = () => { closeModal() };
-
-        div.appendChild(btn);
-        return div;
     }
 
     function get() {
