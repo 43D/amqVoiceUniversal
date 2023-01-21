@@ -221,7 +221,7 @@ function settingAudio() {
 
     function onClickAudio() {
         $("#voiceSave").click(() => save());
-        //set selected action to setCurrentAudio(tag)
+        $('#voiceSelect').change(() => setCurrentAudio($('#voiceSelect').find(":selected").val()));
     }
 
     function save() {
