@@ -42,6 +42,8 @@ const storeAudio = Store();
 const player = playAudio();
 const config = settingAudio();
 
+config.setCurrentAudio($('#voiceSelect').find(":selected").val());
+
 var v;
 var x = true;
 
