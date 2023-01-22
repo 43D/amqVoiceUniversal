@@ -21,3 +21,7 @@ Salve futeba, digo, Viteira!!!
 > Seja feliz
 
 ## Screenshorts
+
+![Main screen](https://media.discordapp.net/attachments/406961257057353744/1066851851598831728/image.png)
+![Options](https://media.discordapp.net/attachments/406961257057353744/1066851947136680019/image.png)
+
