@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.1
+// @version      1.2
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -138,6 +138,7 @@ function setup() {
 function interface() {
     buttonSettings();
     $(".closeModal").click(() => closeModal());
+    $("#resetAll").click(() => storeAudio.reset());
 }
 
 function buttonSettings() {
@@ -309,6 +310,14 @@ function Store() {
         }
     }
 
+    function reset(){
+        localStorage.clear();
+        $("#voiceSaveStatus").text("Refresh is coming....");
+        setTimeout(() => {
+            location.reload();
+        }, 2800);
+    }
+
     function getByTag(tag) {
         return JSON.parse(localStorage.getItem(tag));
     }
@@ -345,7 +354,8 @@ function Store() {
 
     return {
         save,
-        getByTag
+        getByTag,
+        reset
     }
 }
 
