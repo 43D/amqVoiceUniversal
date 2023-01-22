@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D/amqVoiceUniversal
-// @version      1.0
+// @version      1.1
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -71,8 +71,8 @@ else if (heure >= 0 && heure < 7) {
 function init() {
     setup();
     interface();
-    config.setCurrentAudio($('#voiceSelect').find(":selected").val());
     config.events();
+    config.setCurrentAudio($('#voiceSelect').find(":selected").val());
 }
 
 function setup() {
@@ -245,6 +245,9 @@ function settingAudio() {
         const json = { "audio": base64, "volume": volume }
         console.log(json);
         storeAudio.save(tag, json);
+        setTimeout(() => {
+            $("#voiceSaveStatus").text("");
+        }, "5000")
     }
 
     return {
@@ -259,7 +262,6 @@ function sourceAudio() {
         let file;
         if ($("#voiceLink").val()) {
             try {
-                // https://files.catbox.moe/w3q43z.mp3
                 file = await fetch($("#voiceLink").val()).then(r => r.blob());
             } catch (error) {
                 file = $("#voiceFile")[0].files[0];
@@ -285,7 +287,6 @@ function sourceAudio() {
     return {
         update
     }
-
 }
 
 function Store() {
@@ -297,7 +298,13 @@ function Store() {
     }
 
     function save(tag, json) {
-        localStorage.setItem(tag, JSON.stringify(json));
+        try {
+            localStorage.setItem(tag, JSON.stringify(json));
+            $("#voiceSaveStatus").text("Saved!!! [" + tag + "]");
+        } catch (error) {
+            setCurrentAudio($('#voiceSelect').find(":selected").val());
+            $("#voiceSaveStatus").text("File size is big, not saved!!!");
+        }
     }
 
     function getByTag(tag) {
