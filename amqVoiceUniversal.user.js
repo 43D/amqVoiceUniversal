@@ -5,6 +5,7 @@
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
+// @updateURL	 https://github.com/43D/amqVoiceUniversal/raw/main/amqVoiceUniversal.user.js
 // ==/UserScript==
 
 
