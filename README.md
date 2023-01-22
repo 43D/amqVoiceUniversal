@@ -14,4 +14,10 @@ Salve futeba, digo, Viteira!!!
 - [Opera](https://addons.opera.com/pt-br/extensions/details/tampermonkey-beta/)
 - [Mozilla Firefox](https://addons.mozilla.org/pt-BR/firefox/addon/tampermonkey/)
 
-> 
+> Abra o arquivo [amqVoiceUniversal.user.js](https://github.com/43D/amqVoiceUniversal/blob/main/amqVoiceUniversal.user.js) e clique em >>>RAW<<<
+
+> Clique em Instalar
+
+> Seja feliz
+
+## Screenshorts
