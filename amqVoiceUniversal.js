@@ -1,22 +1,11 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D/amqVoiceUniversal
-// @version      0.5.alpha
+// @version      0.6.alpha
 // @description  Voice
 // @author       43D
 // @match        https://animemusicquiz.com/
 // ==/UserScript==
-
-if (document.getElementById("startPage")) return;
-
-let loadInterval = setInterval(() => {
-    if ($("#loadingScreen").hasClass("hidden")) {
-        if ($("#modalBody").length) {
-            init();
-            clearInterval(loadInterval);
-        }
-    }
-}, 500);
 
 const tags = [
     "Welcome1",
@@ -35,14 +24,23 @@ const tags = [
     "GameInvite"
 ];
 
-
 const body = $("body")[0];
 let modal = modalFactory().get();
 const storeAudio = Store();
 const player = playAudio();
+let currentAudio;
 const config = settingAudio();
 
-config.setCurrentAudio($('#voiceSelect').find(":selected").val());
+if (document.getElementById("startPage")) return;
+
+let loadInterval = setInterval(() => {
+    if ($("#loadingScreen").hasClass("hidden")) {
+        if ($("#modalBody").length) {
+            init();
+            clearInterval(loadInterval);
+        }
+    }
+}, 500);
 
 var v;
 var x = true;
@@ -74,6 +72,8 @@ else if (heure >= 0 && heure < 7) {
 function init() {
     setup();
     interface();
+    config.setCurrentAudio($('#voiceSelect').find(":selected").val());
+    config.events();
 }
 
 function setup() {
@@ -206,13 +206,20 @@ function modalFactory() {
 }
 
 function settingAudio() {
-    let currentAudio;
     let source = sourceAudio();
     onClickAudio();
+    onChangeSelect();
+
+    function events(){
+        onClickAudio();
+        onChangeSelect();
+    }
 
     function setCurrentAudio(tag) {
         const json = storeAudio.getByTag(tag);
         currentAudio = new Audio(json.audio);
+        currentAudio.volume = json.volume;
+        console.log(currentAudio);
         showInfo(json);
     }
 
@@ -223,6 +230,9 @@ function settingAudio() {
 
     function onClickAudio() {
         $("#voiceSave").click(() => save());
+    }
+
+    function onChangeSelect(){
         $('#voiceSelect').change(() => setCurrentAudio($('#voiceSelect').find(":selected").val()));
     }
 
@@ -238,6 +248,7 @@ function settingAudio() {
 
     return {
         setCurrentAudio,
+        events
     }
 }
 
