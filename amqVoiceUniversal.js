@@ -7,6 +7,9 @@
 // @match        https://animemusicquiz.com/
 // ==/UserScript==
 
+
+if (document.getElementById("startPage")) return;
+
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -29,8 +32,6 @@ let modal = modalFactory().get();
 const storeAudio = Store();
 const player = playAudio();
 const config = settingAudio();
-
-if (document.getElementById("startPage")) return;
 
 let loadInterval = setInterval(() => {
     if ($("#loadingScreen").hasClass("hidden")) {
