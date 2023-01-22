@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
-// @namespace    https://github.com/43D/amqVoiceUniversal
+// @namespace    https://github.com/43D
 // @version      1.1
 // @description  Voice
 // @author       Allangamer43D
