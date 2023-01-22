@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D/amqVoiceUniversal
-// @version      0.6.alpha
+// @version      0.7.alpha
 // @description  Voice
 // @author       43D
 // @match        https://animemusicquiz.com/
@@ -28,7 +28,6 @@ const body = $("body")[0];
 let modal = modalFactory().get();
 const storeAudio = Store();
 const player = playAudio();
-let currentAudio;
 const config = settingAudio();
 
 if (document.getElementById("startPage")) return;
@@ -215,16 +214,15 @@ function settingAudio() {
         onChangeSelect();
     }
 
+
     function setCurrentAudio(tag) {
         const json = storeAudio.getByTag(tag);
-        currentAudio = new Audio(json.audio);
-        currentAudio.volume = json.volume;
-        console.log(currentAudio);
+        $("#voicePreview").attr("src", json.audio)
+        $("#voicePreview")[0].volume= json.volume;
         showInfo(json);
     }
 
     function showInfo(json) {
-        $("#VoiceTimer").text(currentAudio.duration + " sec...");
         $("#voiceVolume").val(Number(json.volume) * 100);
     }
 
@@ -239,7 +237,7 @@ function settingAudio() {
     function save() {
         source.update();
         const base64 = source.getAudio();
-        currentAudio = new Audio(base64);
+        $("#voicePreview").attr("src", base64)
         const tag = $('#voiceSelect').find(":selected").val();
         const volume = Number($("#voiceVolume").val()) / 100;
         const json = { "audio": base64, "volume": volume }
