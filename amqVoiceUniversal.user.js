@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.2
+// @version      1.3
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -43,18 +43,8 @@ let loadInterval = setInterval(() => {
     }
 }, 500);
 
-var v;
-var x = true;
-
-var lastGain;
-var xpIntoLevel;
-
-// SET VOICE LINES
-
 var now = new Date();
 var heure = now.getHours();
-
-// LOGIN VOICE LINE BASED ON TIME
 
 if (heure >= 7 && heure < 12) {
     player.play(storeAudio.getByTag(tags[0]));
@@ -69,7 +59,6 @@ else if (heure >= 0 && heure < 7) {
     player.play(storeAudio.getByTag(tags[3]));
 }
 
-
 function init() {
     setup();
     interface();
@@ -78,23 +67,18 @@ function init() {
 }
 
 function setup() {
-    // When User join a game
     let JoinGame = new Listener("Join Game", (payload) => {
         player.play(storeAudio.getByTag(tags[4]));
     });
-    // When another Player leave
     let PlayerLeft = new Listener("Player Left", (payload) => {
         player.play(storeAudio.getByTag(tags[5]));
     });
-    // When the game start
     let GameStart = new Listener("Game Starting", (payload) => {
         player.play(storeAudio.getByTag(tags[6]));
     });
-    // When rolling for skins
     let TicketRoll = new Listener("ticket roll result", (payload) => {
         player.play(storeAudio.getByTag(tags[7]));
     });
-    // When leveling up
     let LevelUp = new Listener("quiz xp credit gain", (payload) => {
         var lastGain = data.xpInfo.lastGain;
         var xpIntoLevel = data.xpInfo.xpIntoLevel;
@@ -102,23 +86,18 @@ function setup() {
             player.play(storeAudio.getByTag(tags[8]));
         }
     });
-    // When there is a popout
     let Popout = new Listener("popout message", (payload) => {
         player.play(storeAudio.getByTag(tags[9]));
     });
-    // When changing room settings
     let Setting = new Listener("Room Settings Changed", (payload) => {
         player.play(storeAudio.getByTag(tags[10]));
     });
-    // When receiving DM
     let Message = new Listener("chat message", (payload) => {
         player.play(storeAudio.getByTag(tags[11]));
     });
-    // When receiving friend request
     let FriendRequest = new Listener("new friend request recived", (payload) => {
         player.play(storeAudio.getByTag(tags[12]));
     });
-    // When receiving game invite
     let GameInvite = new Listener("game invite", (payload) => {
         player.play(storeAudio.getByTag(tags[13]));
     });
@@ -358,4 +337,3 @@ function Store() {
         reset
     }
 }
-
