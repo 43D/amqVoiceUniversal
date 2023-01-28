@@ -1,8 +1,8 @@
 # AMQ Voice Universal
 
-Codigo baseado no AMQ HuTao Voice de Mxyuki/AMQ-Scripts
+Code based on AMQ HuTao Voice by Mxyuki/AMQ-Scripts
 
-Adicione linhas de diálogos personalizados no seu AMQ. Por padrão é salvo os sons da HuTao de Genshin.
+Add custom voice-lines to your AMQ. By default Genshin's HuTao sounds are saved.
 
 Salve futeba, digo, Viteira!!!
 
@@ -14,11 +14,11 @@ Salve futeba, digo, Viteira!!!
 - [Opera](https://addons.opera.com/pt-br/extensions/details/tampermonkey-beta/)
 - [Mozilla Firefox](https://addons.mozilla.org/pt-BR/firefox/addon/tampermonkey/)
 
-> Abra o arquivo [amqVoiceUniversal.user.js](https://github.com/43D/amqVoiceUniversal/blob/main/amqVoiceUniversal.user.js) e clique em >>>RAW<<<
+> Open the file [amqVoiceUniversal.user.js](https://github.com/43D/amqVoiceUniversal/blob/main/amqVoiceUniversal.user.js) and click in >>>RAW<<<
 
-> Clique em Instalar
+> Click in Install
 
-> Seja feliz
+> Happy end
 
 ## Screenshorts
 
