@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.3.1
+// @version      1.3.2
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,6 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
+const currentVersion = "1.3.2";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -43,8 +44,8 @@ let loadInterval = setInterval(() => {
     }
 }, 500);
 
-var now = new Date();
-var heure = now.getHours();
+const now = new Date();
+const heure = now.getHours();
 
 if (heure >= 7 && heure < 12) {
     player.play(storeAudio.getByTag(tags[0]));
@@ -80,8 +81,8 @@ function setup() {
         player.play(storeAudio.getByTag(tags[7]));
     });
     let LevelUp = new Listener("quiz xp credit gain", (payload) => {
-        var lastGain = data.xpInfo.lastGain;
-        var xpIntoLevel = data.xpInfo.xpIntoLevel;
+        const lastGain = data.xpInfo.lastGain;
+        const xpIntoLevel = data.xpInfo.xpIntoLevel;
         if (lastGain > xpIntoLevel) {
             player.play(storeAudio.getByTag(tags[8]));
         }
@@ -165,6 +166,7 @@ function modalFactory() {
         styleDiv();
         body.appendChild(modal);
         $("#modalVoice").load("https://43d.github.io/amqVoiceUniversal/index.html");
+        $("voiceCurrentVersion").text(currentVersion);
     }
 
     function styleDiv() {
@@ -172,7 +174,7 @@ function modalFactory() {
         modal.style.width = "60%";
         modal.style.zIndex = "999999999";
         modal.style.right = "20%";
-        modal.style.backgroundColor = "#131313";
+        modal.style.backgroundColor = "#1b1b1b";
         modal.style.display = "none";
         modal.id = "modalVoice"
     }
@@ -259,7 +261,7 @@ function sourceAudio() {
     }
 
     async function serializator(file) {
-        var reader = new FileReader()
+        let reader = new FileReader()
         reader.onload = async function (base64) {
             config.saveLocal(base64.target.result);
         }
