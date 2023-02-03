@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.3.5
+// @version      1.3.7
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,7 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
-const currentVersion = "1.3.4";
+const currentVersion = "1.3.7";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -48,16 +48,16 @@ const now = new Date();
 const heure = now.getHours();
 
 if (heure >= 7 && heure < 12) {
-    player.play(storeAudio.getByTag(tags[0]));
+    player.play(tags[0]);
 }
 else if (heure >= 12 && heure < 18) {
-    player.play(storeAudio.getByTag(tags[1]));
+    player.play(tags[1]);
 }
 else if (heure >= 18) {
-    player.play(storeAudio.getByTag(tags[2]));
+    player.play(tags[2]);
 }
 else if (heure >= 0 && heure < 7) {
-    player.play(storeAudio.getByTag(tags[3]));
+    player.play(tags[3]);
 }
 
 function init() {
@@ -70,38 +70,38 @@ function init() {
 
 function setup() {
     let JoinGame = new Listener("Join Game", (payload) => {
-        player.play(storeAudio.getByTag(tags[4]));
+        player.play(tags[4]);
     });
     let PlayerLeft = new Listener("Player Left", (payload) => {
-        player.play(storeAudio.getByTag(tags[5]));
+        player.play(tags[5]);
     });
     let GameStart = new Listener("Game Starting", (payload) => {
-        player.play(storeAudio.getByTag(tags[6]));
+        player.play(tags[6]);
     });
     let TicketRoll = new Listener("ticket roll result", (payload) => {
-        player.play(storeAudio.getByTag(tags[7]));
+        player.play(tags[7]);
     });
     let LevelUp = new Listener("quiz xp credit gain", (payload) => {
         const lastGain = data.xpInfo.lastGain;
         const xpIntoLevel = data.xpInfo.xpIntoLevel;
         if (lastGain > xpIntoLevel) {
-            player.play(storeAudio.getByTag(tags[8]));
+            player.play(tags[8]);
         }
     });
     let Popout = new Listener("popout message", (payload) => {
-        player.play(storeAudio.getByTag(tags[9]));
+        player.play(tags[9]);
     });
     let Setting = new Listener("Room Settings Changed", (payload) => {
-        player.play(storeAudio.getByTag(tags[10]));
+        player.play(tags[10]);
     });
     let Message = new Listener("chat message", (payload) => {
-        player.play(storeAudio.getByTag(tags[11]));
+        player.play(tags[11]);
     });
     let FriendRequest = new Listener("new friend request recived", (payload) => {
-        player.play(storeAudio.getByTag(tags[12]));
+        player.play(tags[12]);
     });
     let GameInvite = new Listener("game invite", (payload) => {
-        player.play(storeAudio.getByTag(tags[13]));
+        player.play(tags[13]);
     });
 
     JoinGame.bindListener();
@@ -148,11 +148,22 @@ function closeModal() {
 }
 
 function playAudio() {
-    function play(json) {
-        const audio = new Audio(json.audio);
-        audio.volume = json.volume;
-        audio.play();
+    let list = {};
+    function play(tag) {
+        if (!list[tag]) {
+            const json = storeAudio.getByTag(tag);
+            const audio = new Audio(json.audio);
+            audio.volume = json.volume;
+            list[tag] = audio;
+            playByTag(tag);
+        } else
+            playByTag(tag);
     }
+
+    function playByTag(tag) {
+        list[tag].play()
+    }
+
     return {
         play
     }
@@ -315,8 +326,7 @@ function Store() {
 
     async function defaultAudio() {
         const defaultAudio = await $.get("https://43d.github.io/amqVoiceUniversal/defaultAudio.json")
-
-        defaultAudio.list.forEach((k) => 
+        defaultAudio.list.forEach((k) =>
             save(k.name, k.data)
         );
     }
