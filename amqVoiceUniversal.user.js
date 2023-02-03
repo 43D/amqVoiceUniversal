@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.3.7
+// @version      1.3.8
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,7 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
-const currentVersion = "1.3.7";
+const currentVersion = "1.3.8";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -29,8 +29,7 @@ const tags = [
     "GameInvite"
 ];
 
-const body = $("body")[0];
-let modal = modalFactory().get();
+const modal = modalFactory();
 const storeAudio = Store();
 const player = playAudio();
 const config = settingAudio();
@@ -117,34 +116,9 @@ function setup() {
 }
 
 function interface() {
-    buttonSettings();
-    $(".closeModal").click(() => closeModal());
+    $(".closeModal").click(() => modal.closeModal());
     $("#resetAll").click(() => storeAudio.reset());
-}
-
-function buttonSettings() {
-    let div = document.createElement("div");
-    let btn = document.createElement("button");
-    btn.innerHTML = "Voice Settings";
-    div.style.position = "absolute"
-    div.style.bottom = "50px";
-    div.style.zIndex = "199";
-    btn.style.color = "white";
-    btn.style.backgroundColor = "#131313";
-    btn.style.fontSize = "14pt";
-    btn.style.width = "200px";
-    btn.style.height = "40px";
-    btn.onclick = () => { openModal() };
-    div.appendChild(btn);
-    body.appendChild(div);
-
-}
-
-function openModal() {
-    modal.style.display = "block";
-}
-function closeModal() {
-    modal.style.display = "none";
+    $("#btnOpenVoiceSetting").click(() => modal.openModal());
 }
 
 function playAudio() {
@@ -176,8 +150,10 @@ function modalFactory() {
 
     function init() {
         styleDiv();
-        body.appendChild(modal);
+        $("body")[0].appendChild(modal);
         $("#modalVoice").load("https://43d.github.io/amqVoiceUniversal/index.html");
+        $("#footerMenuBar").append($("<div>").attr("id", "divVoiceLoad"));
+        $("#divVoiceLoad").load("https://43d.github.io/amqVoiceUniversal/button.html");
     }
 
     function styleDiv() {
@@ -190,12 +166,16 @@ function modalFactory() {
         modal.id = "modalVoice"
     }
 
-    function get() {
-        return modal;
+    function openModal() {
+        modal.style.display = "block";
+    }
+    function closeModal() {
+        modal.style.display = "none";
     }
 
     return {
-        get
+        openModal,
+        closeModal
     }
 }
 
