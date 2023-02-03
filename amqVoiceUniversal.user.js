@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.3.8
+// @version      1.3.9
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,7 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
-const currentVersion = "1.3.8";
+const currentVersion = "1.3.9";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -123,19 +123,26 @@ function interface() {
 
 function playAudio() {
     let list = {};
+    let played = [];
+
     function play(tag) {
         if (!list[tag]) {
             const json = storeAudio.getByTag(tag);
-            const audio = new Audio(json.audio);
-            audio.volume = json.volume;
-            list[tag] = audio;
-            playByTag(tag);
-        } else
-            playByTag(tag);
+            list[tag] = json;
+        }
+        if (!list[tag].simultaneousAllow) {
+            if(played.includes(tag)){
+                return;
+            }
+            played.push(tag);
+        }
+        playByTag(tag);
     }
 
     function playByTag(tag) {
-        list[tag].play()
+        const audio = new Audio(list[tag].audio);
+        audio.volume = list[tag].volume;
+        audio.play()
     }
 
     return {
@@ -188,8 +195,7 @@ function settingAudio() {
         onClickAudio();
         onChangeSelect();
     }
-
-
+//simultaneousAllow
     function setCurrentAudio(tag) {
         const json = storeAudio.getByTag(tag);
         $("#voicePreview").attr("src", json.audio)
@@ -199,6 +205,7 @@ function settingAudio() {
 
     function showInfo(json) {
         $("#voiceVolume").val(Number(json.volume) * 100);
+        $("#simultaneousAllow").attr('checked');
     }
 
     function onClickAudio() {
