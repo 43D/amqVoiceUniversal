@@ -228,6 +228,7 @@ function settingAudio() {
         json.volume = Number($("#voiceVolume").val()) / 100;
 
         storeAudio.save(tag, json);
+        $("#voicePreview")[0].volume = json.volume;
         $("#voiceSaveStatus").text("Update configs...")
         setTimeout(() => {
             $("#voiceSaveStatus").text("");
