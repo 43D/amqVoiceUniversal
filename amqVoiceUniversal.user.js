@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.4.0
+// @version      1.4.1
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,7 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
-const currentVersion = "1.4.0";
+const currentVersion = "1.4.1";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -292,8 +292,6 @@ function Store() {
     function init() {
         if (!getByTag(tags[0]))
             defaultAudio();
-        else if (!getByTag(tags[0]).simultaneousAllow)
-            updateLocal();
     }
 
     function save(tag, json) {
@@ -316,14 +314,6 @@ function Store() {
 
     function getByTag(tag) {
         return JSON.parse(localStorage.getItem(tag));
-    }
-
-    function updateLocal() {
-        tags.forEach((k) => {
-            let json = getByTag(k);
-            json.simultaneousAllow = false;
-            save(k, json);
-        });
     }
 
     async function defaultAudio() {
