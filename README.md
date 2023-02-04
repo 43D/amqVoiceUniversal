@@ -6,7 +6,7 @@ Add custom voice-lines to your AMQ. By default Genshin's HuTao sounds are saved.
 
 Salve futeba, digo, Viteira!!!
 
-## Como instalar ??
+## How to install?
 
 > Download Tampermonkey extension
 - [Google Chrome/Chromium](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=pt)
