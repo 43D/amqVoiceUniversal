@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.3.9
+// @version      1.4.0
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,7 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
-const currentVersion = "1.3.9";
+const currentVersion = "1.4.0";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -131,7 +131,7 @@ function playAudio() {
             list[tag] = json;
         }
         if (!list[tag].simultaneousAllow) {
-            if(played.includes(tag)){
+            if (played.includes(tag)) {
                 return;
             }
             played.push(tag);
@@ -195,17 +195,15 @@ function settingAudio() {
         onClickAudio();
         onChangeSelect();
     }
-//simultaneousAllow
+
     function setCurrentAudio(tag) {
         const json = storeAudio.getByTag(tag);
         $("#voicePreview").attr("src", json.audio)
         $("#voicePreview")[0].volume = json.volume;
-        showInfo(json);
-    }
-
-    function showInfo(json) {
         $("#voiceVolume").val(Number(json.volume) * 100);
         $('#simultaneousAllow').prop("checked", json.simultaneousAllow);
+        $("#voiceLink").val("");
+        $("#voiceFile").val("");
     }
 
     function onClickAudio() {
@@ -217,15 +215,31 @@ function settingAudio() {
     }
 
     async function save() {
-        await source.update();
+        if ($("#voiceFile").val() || $("#voiceLink").val())
+            await source.update();
+        else
+            saveConfigs();
     }
+
+    function saveConfigs() {
+        const tag = $('#voiceSelect').find(":selected").val();
+        let json = storeAudio.getByTag(tag);
+        json.simultaneousAllow = $('#simultaneousAllow').prop("checked");
+        json.volume = Number($("#voiceVolume").val()) / 100;
+
+        storeAudio.save(tag, json);
+        $("#voiceSaveStatus").text("Update configs...")
+        setTimeout(() => {
+            $("#voiceSaveStatus").text("");
+        }, "3000")
+    };
 
     function saveLocal(base64) {
         $("#voicePreview").attr("src", base64)
         const tag = $('#voiceSelect').find(":selected").val();
         const volume = Number($("#voiceVolume").val()) / 100;
-        const json = { "audio": base64, "simultaneousAllow": "false", "volume": volume }
-        console.log(json);
+        const simultaneousAllow = $('#simultaneousAllow').prop("checked");
+        const json = { "audio": base64, "simultaneousAllow": simultaneousAllow, "volume": volume }
         storeAudio.save(tag, json);
         setTimeout(() => {
             $("#voiceSaveStatus").text("");
