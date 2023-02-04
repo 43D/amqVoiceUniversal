@@ -22,6 +22,6 @@ Salve futeba, digo, Viteira!!!
 
 ## Screenshorts
 
-![Main screen](https://media.discordapp.net/attachments/406961257057353744/1066851851598831728/image.png)
-![Options](https://media.discordapp.net/attachments/406961257057353744/1066851947136680019/image.png)
+![Main screen](https://media.discordapp.net/attachments/1027672464437805127/1071234490367742042/image.png)
+![Options](https://media.discordapp.net/attachments/1027672464437805127/1071234536534446090/image.png)
 
