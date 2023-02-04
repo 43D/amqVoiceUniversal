@@ -205,7 +205,7 @@ function settingAudio() {
 
     function showInfo(json) {
         $("#voiceVolume").val(Number(json.volume) * 100);
-        $("#simultaneousAllow").attr('checked');
+        $('#simultaneousAllow').prop("checked", json.simultaneousAllow);
     }
 
     function onClickAudio() {
