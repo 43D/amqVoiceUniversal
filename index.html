@@ -1,51 +1,67 @@
 <div id="modalBody" style="margin: 50px; font-size: 16pt; background-color: #1b1b1b; color: #fff;">
 	<div style="display: flex; justify-content: space-around;">
 		<h3>Voice Settings</h3>
-		<button class="closeModal" style="background-color: #00000000; color: white; border: 0px; font-size: 25px;">X</button>
+		<button class="closeModal"
+			style="background-color: #00000000; color: white; border: 0px; font-size: 25px;">X</button>
 	</div>
 	<hr style="margin: 5px 0px 15px">
 	<div>
-		<div style="display: flex; justify-content: center; margin-top: 10px; margin-bottom: 30px;">
-			<select id="voiceSelect" name="select" style="font-size: 21pt; border-radius: 5px; background-color: #424242; color: #fff;">
-				<option value="Welcome1" selected>Welcome (07:00-12:00)</option>
-				<option value="Welcome2">Welcome (12:00-18:00)</option>
-				<option value="Welcome3">Welcome (18:00-00:00)</option>
-				<option value="Welcome4">Welcome (00:00-07:00)</option>
-				<option value="JoinGame">Join Game</option>
-				<option value="PlayerLeft">Player Left</option>
-				<option value="GameStart">Game Start</option>
-				<option value="TicketRoll">Ticket Roll</option>
-				<option value="LevelUp">Level Up</option>
-				<option value="Popout">Popout</option>
-				<option value="Setting">Setting</option>
-				<option value="Message">Message</option>
-				<option value="FriendRequest">Friend Request</option>
-				<option value="GameInvite">Game Invite</option>
-			</select>
-		</div>
-		<div>
-			<input id="voiceLink" style="border-radius: 5px; font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="url" placeholder="https://.ogg">
-			<span>OR</span>
-			<input id="voiceFile" style="border-radius: 5px; font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;" type="file" accept=".mp3, .ogg, .wav">
-		</div>
-		<div style="align-items: flex-start; display: flex; justify-content: center;">
-			<input type="checkbox" id="simultaneousAllow" name="simultaneousAllow" style="border-radius: 5px; height: 25px;width: 45px;">
-			<label for="simultaneousAllow">Multiple audios repeated simultaneously</label>
-		</div>
+
 		<div style="display: flex; justify-content: space-around;">
-			<div style="display: flex; width: 30%; align-items: center;">
-				<p style="margin: 2px 5px;">Volume:</p>
-				<input id="voiceVolume" style="width: 100%;" type="range" min="0" max="100" value="100">
+			<div>
+				<div style="display: flex; justify-content: start; margin-top: 10px; margin-bottom: 30px;">
+					<select id="voiceSelect" name="select"
+						style="font-size: 21pt; border-radius: 5px; background-color: #424242; color: #fff;">
+						<option value="Welcome1" selected>Welcome (07:00-12:00)</option>
+						<option value="Welcome2">Welcome (12:00-18:00)</option>
+						<option value="Welcome3">Welcome (18:00-00:00)</option>
+						<option value="Welcome4">Welcome (00:00-07:00)</option>
+						<option value="JoinGame">Join Game</option>
+						<option value="PlayerLeft">Player Left</option>
+						<option value="GameStart">Game Start</option>
+						<option value="TicketRoll">Ticket Roll</option>
+						<option value="LevelUp">Level Up</option>
+						<option value="Popout">Popout</option>
+						<option value="Setting">Setting</option>
+						<option value="Message">Message</option>
+						<option value="FriendRequest">Friend Request</option>
+						<option value="GameInvite">Game Invite</option>
+					</select>
+				</div>
+
+				<div>
+					<input id="voiceFile"
+						style="border-radius: 5px; font-size: 16pt; margin: 10px 0px; width: 100%;  background-color: #424242; color: #fff;"
+						type="file" accept=".mp3, .ogg, .wav">
+				</div>
+
 			</div>
-			<div style="margin: 2px 5px; display: flex; align-items: center;">
-				<p style="margin: 0px 5px;">Preview audio:
-				</p>
-				<audio id="voicePreview" src="" controls preload="auto"></audio>
+			<div>
+				<div style="align-items: flex-start; display: flex; align-items: center; margin-bottom: 15px;">
+					<input type="checkbox" id="simultaneousAllow" name="simultaneousAllow"
+						style="border-radius: 5px; height: 25px;width: 45px; margin: 0px;">
+					<label for="simultaneousAllow">Overlapping multiple audio</label>
+				</div>
+				<div style="display: flex; align-items: center;">
+					<p style="margin: 2px 5px;">Volume:</p>
+					<input id="voiceVolume" style="width: 150px;" type="range" min="0" max="100" value="100">
+				</div>
+				<div style="margin: 2px 5px; display: flex; align-items: center;">
+					<p style="margin: 0px 5px;">Preview audio:
+					</p>
+					<audio id="voicePreview" src="" controls preload="auto"></audio>
+				</div>
 			</div>
 		</div>
 
+
+		<div style="display: flex; justify-content: space-around;">
+
+		</div>
+
 		<div style="display: flex; justify-content: space-evenly; margin-top: 25px;">
-			<button id="voiceSave" style="font-size: 18pt; background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">SAVE</button>
+			<button id="voiceSave"
+				style="font-size: 18pt; background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">SAVE</button>
 		</div>
 
 	</div>
@@ -56,11 +72,17 @@
 	</div>
 	<hr style="margin: 5px 0px 15px">
 	<div style="display: flex; margin-top: 25px; justify-content: center;">
-		<button class="closeModal" style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">CLOSE</button>
-		<button id="resetAll" style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">RESET ALL</button>
+		<button class="closeModal"
+			style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">CLOSE</button>
+		<button id="resetAll"
+			style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">RESET
+			ALL</button>
 	</div>
-	<div>
-		<p style="text-align: center;">Recommended: .OGG. -  Compatible with: .OGG, .MP3, .WAV</p>
+	<div id="toggleDivAV" style="text-align: center; margin-bottom: 50px; cursor: pointer;">
+		<p>Dev. information & Credits</p>
+	</div>
+    <div id="collapseDivAV" style="display: none;">
+		<p style="text-align: center;">Recommended: .OGG. - Compatible with: .OGG, .MP3, .WAV</p>
 		<p style="text-align: center;">Baseado no script AMQ HuTao Voice de
 			<a target="_blank" href="https://github.com/Mxyuki/AMQ-Scripts">Mxyuki/AMQ-Scripts</a>
 		</p>
@@ -68,6 +90,23 @@
 			<a target="_blank" href="https://github.com/43D/amqVoiceUniversal">GitHub</a>
 		</p>
 		<p style="text-align: center;">Current verison:
-			<span id="voiceCurrentVersion"></span>. - Last version: 1.4.2</p>
+			<span id="voiceCurrentVersion"></span>. - Last version: 1.4.2
+		</p>
+    </div>
+	<div>
+
 	</div>
+	<script>
+        // JavaScript para lidar com o colapso/expansão da div
+        const toggleButton = document.getElementById('toggleDivAV');
+        const minhaDiv = document.getElementById('collapseDivAV');
+
+        toggleButton.addEventListener('click', function () {
+            if (minhaDiv.style.display === 'none') {
+                minhaDiv.style.display = 'block';
+            } else {
+                minhaDiv.style.display = 'none';
+            }
+        });
+    </script>
 </div>
