@@ -82,6 +82,12 @@
 		<p>Dev. information & Credits</p>
 	</div>
     <div id="collapseDivAV" style="display: none;">
+		<p style="text-align: center;">Space limit (estimated maximum values, may change depending on the browser):</p>
+		<p style="text-align: center;"><span id="quotaLocal">00</span>MB of 5.0MB</p>
+		<div style="margin-left: 15%; width: 70%; height: 5px; background-color: black;">
+			<div id="quotaBar" style="background-color: green; width: 0%; height: 100%;"></div>
+		</div>
+		<hr>
 		<p style="text-align: center;">Recommended: .OGG. - Compatible with: .OGG, .MP3, .WAV</p>
 		<p style="text-align: center;">Baseado no script AMQ HuTao Voice de
 			<a target="_blank" href="https://github.com/Mxyuki/AMQ-Scripts">Mxyuki/AMQ-Scripts</a>
@@ -108,5 +114,14 @@
                 minhaDiv.style.display = 'none';
             }
         });
+
+		const quotaLocal = document.getElementById('quotaLocal');
+		const quotaBar = document.getElementById('quotaBar');
+		const usedSpace = JSON.stringify(localStorage).length;
+		const maxStorageSize = 5 * 1024 * 1024; // 5 MB em bytes
+		const quota = (100 / maxStorageSize * (maxStorageSize - usedSpace));
+		const usedSpaceMB = usedSpace / (1024 * 1024);
+		quotaLocal.innerHTML = usedSpaceMB.toFixed(2);
+		quotaBar.style.width = quota+"%";
     </script>
 </div>
