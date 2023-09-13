@@ -69,12 +69,19 @@
 				</div>
 
 			</div>
-			<div  style="width: 45%;">
+			<div style="width: 45%;">
 				<h3 style="text-align: center;">Modify Audio</h3>
 				<div style="align-items: flex-start; display: flex; align-items: center; margin-bottom: 15px;">
 					<input type="checkbox" id="simultaneousAllow" name="simultaneousAllow"
 						style="border-radius: 5px; height: 25px;width: 45px; margin: 0px;">
 					<label for="simultaneousAllow">Overlapping multiple audio</label>
+				</div>
+				<div>
+					<p style="margin: 0px;">How should I choose which audio to play?</p>
+					<input type="radio" id="sequentialChoose" name="audioAlgorit" value="sequential" checked>
+					<label for="sequentialChoose">Sequential choice</label><br>
+					<input type="radio" id="randomChoose" name="audioAlgorit" value="random">
+					<label for="randomChoose">Random choice</label><br>
 				</div>
 				<hr>
 				<div style="display: flex; align-items: center;">
@@ -86,16 +93,16 @@
 					</select>
 				</div>
 
-				<div style="display: flex; align-items: center;">
+				<div style="display: flex; align-items: center; margin-top: 15px;">
 					<p style="margin: 0px; margin-right: 5px;">Volume:</p>
 					<input id="voiceVolume" style="width: 150px;" type="range" min="0" max="100" value="100">
 				</div>
-				<div>
+				<div style="margin-top: 15px;">
 					<button id="playPreviewAudioNow"
 						style="font-size: 15pt; background-color: #424242; color: #fff; border-radius: 5px;">Play
 						preview audio</button>
 				</div>
-				<div>
+				<div style="margin-top: 15px;">
 					<button id="removeActualSongPreview"
 						style="font-size: 15pt; background-color: #424242; color: #fff; border-radius: 5px;">
 						Remove current audio
@@ -119,7 +126,8 @@
 		<button class="closeModal"
 			style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">Close</button>
 		<button id="resetAll"
-			style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">Reset all</button>
+			style="font-size: 18pt;  background-color: #424242; color: #fff; width: 150px; border-radius: 5px;">Reset
+			all</button>
 	</div>
 	<div id="toggleDivAV" style="text-align: center; margin-bottom: 50px; cursor: pointer;">
 		<p>Extra Information & Dev. information & Credits</p>
