@@ -183,6 +183,6 @@
 		const quota = (100 / maxStorageSize * (maxStorageSize - usedSpace));
 		const usedSpaceMB = usedSpace / (1024 * 1024);
 		quotaLocal.innerHTML = usedSpaceMB.toFixed(2);
-		quotaBar.width = quota+"%";
+		quotaBar.style.width = quota+"%";
 	</script>
 </div>
