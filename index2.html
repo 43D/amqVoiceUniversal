@@ -133,6 +133,12 @@
 		<p style="text-align: center;">Recommended: .OGG. It has good quality without taking up a lot of space.</p>
 		<p style="text-align: center;">Compatible with: .OGG, .MP3, .WAV</p>
 		<hr>
+		<p style="text-align: center;">Space limit (estimated maximum values, may change depending on the browser):</p>
+		<p style="text-align: center;"><span id="quotaLocal">00</span>MB of 5.0MB</p>
+		<div style="margin-left: 15%; width: 70%; height: 5px; background-color: black;">
+			<div id="quotaBar" style="background-color: green; width: 0%; height: 100%;"></div>
+		</div>
+		<hr>
 		<p style="text-align: center;">Based on AMQ HuTao Voice scpirt:
 			<a target="_blank" href="https://github.com/Mxyuki/AMQ-Scripts">Mxyuki/AMQ-Scripts</a>
 		</p>
@@ -170,5 +176,13 @@
 
 		});
 
+		const quotaLocal = document.getElementById('quotaLocal');
+		const quotaBar = document.getElementById('quotaBar');
+		const usedSpace = JSON.stringify(localStorage).length;
+		const maxStorageSize = 5 * 1024 * 1024; // 5 MB em bytes
+		const quota = (100 / maxStorageSize * (maxStorageSize - usedSpace));
+		const usedSpaceMB = usedSpace / (1024 * 1024);
+		quotaLocal.innerHTML = usedSpaceMB.toFixed(2);
+		quotaBar.width = quota+"%";
 	</script>
 </div>
