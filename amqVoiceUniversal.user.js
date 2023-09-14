@@ -1,17 +1,17 @@
 // ==UserScript==
-// @name         AMQ Voice Universal
+// @name         AMQ Voice Universal2
 // @namespace    https://github.com/43D
-// @version      1.4.3
+// @version      2.0.0
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
 // @updateURL	 https://github.com/43D/amqVoiceUniversal/raw/main/amqVoiceUniversal.user.js
+// @require      https://raw.githubusercontent.com/TheJoseph98/AMQ-Scripts/master/common/amqScriptInfo.js
 // ==/UserScript==
 
 
 if (document.getElementById("startPage")) return;
-
-const currentVersion = "1.4.3";
+const currentVersion = "2.0.0";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -65,6 +65,34 @@ function init() {
     config.events();
     config.setCurrentAudio($('#voiceSelect').find(":selected").val());
     $("#voiceCurrentVersion").text(currentVersion);
+    $("#simultaneousAllow").change(() => {
+        config.saveConfigs();
+    });
+    $("#voiceVolume").change(() => {
+        config.saveConfigs();
+    });
+    $("#randomChoose").change(() => {
+        config.saveConfigs();
+    });
+    $("#sequentialChoose").change(() => {
+        config.saveConfigs();
+    });
+    $('#songList').change(() => config.setAudioBySongList($('#voiceSelect').find(":selected").val()));
+
+    $("#removeActualSongPreview").click(() => {
+        config.removeSong($('#voiceSelect').find(":selected").val());
+    });
+    desc();
+}
+
+function desc() {
+    AMQ_addScriptData({
+        name: " AMQ Voice Universal",
+        author: "43D",
+        description: `<p>Add personalized audio notifications for each action in AMQ. By default Genshin's HuTao sounds are saved.</p>
+            <p>Salve futeba, digo, Viteira!!!</p>
+            <p><a href="https://github.com/43D/amqVoiceUniversal/raw/main/amqVoiceUniversal.user.js" target="_blank">Click this link</a> to update it.</p>`
+    });
 }
 
 function setup() {
@@ -138,8 +166,27 @@ function playAudio() {
     }
 
     function playByTag(tag) {
-        const audio = new Audio(list[tag].audio);
-        audio.volume = list[tag].volume;
+        const data = list[tag];
+        let audioSrc = "";
+        let volume = 0;
+        if (data["config"] == "random") {
+            const number = Math.floor(Math.random() * data["audio"].length);
+            audioSrc = data["audio"][number];
+            volume = data["volume"][number];
+        }
+        else {
+            let number = data['indicator'];
+            audioSrc = data["audio"][number];
+            volume = data["volume"][number];
+            number++;
+            if (data["audio"].length == number)
+                number = 0;
+            data['indicator'] = number;
+            storeAudio.save(tag, data);
+        }
+
+        const audio = new Audio(audioSrc);
+        audio.volume = volume;
         $(audio).on('ended', function () {
             played.splice(played.indexOf(tag), 1)
         });
@@ -159,16 +206,18 @@ function modalFactory() {
     function init() {
         styleDiv();
         $("body")[0].appendChild(modal);
-        $("#modalVoice").load("https://43d.github.io/amqVoiceUniversal/index.html");
+        $("#modalVoice").load("https://43d.github.io/amqVoiceUniversal/index2.html");
+
         $("#footerMenuBar").append($("<div>").attr("id", "divVoiceLoad"));
         $("#divVoiceLoad").load("https://43d.github.io/amqVoiceUniversal/button.html");
     }
 
     function styleDiv() {
         modal.style.position = "absolute"
-        modal.style.width = "60%";
+        modal.style.width = "80%";
         modal.style.zIndex = "999999999";
-        modal.style.right = "20%";
+        modal.style.right = "10%";
+        modal.style.top = "0";
         modal.style.backgroundColor = "#1b1b1b";
         modal.style.display = "none";
         modal.id = "modalVoice"
@@ -195,20 +244,37 @@ function settingAudio() {
     function events() {
         onClickAudio();
         onChangeSelect();
+        // salvar novas interações
+    }
+
+    function setAudioBySongList(tag){
+        const index =  $('#songList').find(":selected").val();
+        const json = storeAudio.getByTag(tag);
+        $("#voicePreview").attr("src", json.audio[index])
+        $("#voicePreview")[0].volume = json.volume[index];
+        $("#voiceVolume").val(Number(json.volume[index]) * 100);
     }
 
     function setCurrentAudio(tag) {
         const json = storeAudio.getByTag(tag);
-        $("#voicePreview").attr("src", json.audio)
-        $("#voicePreview")[0].volume = json.volume;
-        $("#voiceVolume").val(Number(json.volume) * 100);
+        $("#voicePreview").attr("src", json.audio[0])
+        $("#voicePreview")[0].volume = json.volume[0];
+        $("#voiceVolume").val(Number(json.volume[0]) * 100);
         $('#simultaneousAllow').prop("checked", json.simultaneousAllow);
-        $("#voiceLink").val("");
         $("#voiceFile").val("");
+        $("#songListReplace").empty()
+        $("#songList").empty()
+        json.audio.forEach((v, k) => {
+            const name = tag + " " + k;
+            const option = $("<option>").attr("value", k).text(name);
+            const option2 = $("<option>").attr("value", k).text(name);
+            $("#songListReplace").append(option2);
+            $("#songList").append(option);
+        });
     }
 
     function onClickAudio() {
-        $("#voiceSave").click(() => save());
+        $("#newAudioSave").click(() => save());
     }
 
     function onChangeSelect() {
@@ -216,22 +282,27 @@ function settingAudio() {
     }
 
     async function save() {
-        if ($("#voiceFile").val() || $("#voiceLink").val())
+        if ($("#voiceFile").val())
             await source.update();
-        else
-            saveConfigs();
     }
 
+
+    //salva mudaça de configs
     function saveConfigs() {
         const tag = $('#voiceSelect').find(":selected").val();
+        const index = $('#songList').find(":selected").val();
         let json = storeAudio.getByTag(tag);
+
         json.simultaneousAllow = $('#simultaneousAllow').prop("checked");
-        json.volume = Number($("#voiceVolume").val()) / 100;
+        json.volume[index] = Number($("#voiceVolume").val()) / 100;
+        json.config = $('input[type="radio"][name="audioAlgorit"]:checked').val();
 
         storeAudio.save(tag, json);
-        $("#voicePreview")[0].volume = json.volume;
+
+        $("#voicePreview")[0].volume = json.volume[index];
         $("#voiceSaveStatus").text("Update configs...")
         setTimeout(() => {
+            $("#voiceAddStatus").text("");
             $("#voiceSaveStatus").text("");
         }, "3000")
     };
@@ -240,33 +311,53 @@ function settingAudio() {
         $("#voicePreview").attr("src", base64)
         const tag = $('#voiceSelect').find(":selected").val();
         const volume = Number($("#voiceVolume").val()) / 100;
-        const simultaneousAllow = $('#simultaneousAllow').prop("checked");
-        const json = { "audio": base64, "simultaneousAllow": simultaneousAllow, "volume": volume }
+        const newSong = $('input[type="radio"][name="audioCreator"]:checked').val();
+        let json = storeAudio.getByTag(tag);
+        if (newSong == "new") {
+            json.volume.push(volume);
+            json.audio.push(base64);
+        } else {
+            let index = $("#songListReplace").val();
+            if (!$("#songListReplace").val())
+                index = 0;
+            json.audio[index] = base64;
+        }
+
         storeAudio.save(tag, json);
         setTimeout(() => {
+            $("#voiceAddStatus").text("");
+        }, "5000")
+        config.setCurrentAudio($('#voiceSelect').find(":selected").val());
+    }
+
+    function removeSong(tag){
+        const index =  $('#songList').find(":selected").val();
+        let json = storeAudio.getByTag(tag);
+        json.volume.splice(index,1)
+        json.audio.splice(index,1)
+        storeAudio.save(tag, json);
+        $("#voiceSaveStatus").text("Update configs...")
+        setTimeout(() => {
+            $("#voiceAddStatus").text("");
             $("#voiceSaveStatus").text("");
         }, "5000")
+        config.setCurrentAudio($('#voiceSelect').find(":selected").val());
+  
     }
 
     return {
         setCurrentAudio,
         events,
-        saveLocal
+        saveLocal,
+        saveConfigs,
+        setAudioBySongList,
+        removeSong
     }
 }
 
 function sourceAudio() {
     async function update() {
-        let file;
-        if ($("#voiceLink").val()) {
-            try {
-                file = await fetch($("#voiceLink").val()).then(r => r.blob());
-            } catch (error) {
-                file = $("#voiceFile")[0].files[0];
-            }
-        } else {
-            file = $("#voiceFile")[0].files[0];
-        }
+        let file = $("#voiceFile")[0].files[0];
         if (file) {
             await serializator(file);
             return true;
@@ -288,40 +379,66 @@ function sourceAudio() {
 }
 
 function Store() {
-    init();
+    const test = JSON.parse(localStorage.getItem(tags[0]));
+    if (test)
+        migrate();
+    else if (!getByTag(tags[0]))
+        defaultAudio();
 
-    function init() {
-        if (!getByTag(tags[0]))
-            defaultAudio();
+    function migrate() {
+        let song = {};
+        tags.forEach((k) => {
+            data = JSON.parse(localStorage.getItem(k));
+            song[k] = {
+                "simultaneousAllow": data.simultaneousAllow,
+                "volume": [data.volume],
+                "indicator": 0,
+                "config": "random",
+                "audio": [data.audio]
+            };
+            localStorage.removeItem(k);
+        });
+        const songString = JSON.stringify(song);
+        localStorage.setItem("VoiceUniversal", songString);
+
     }
 
     function save(tag, json) {
+        let data = JSON.parse(localStorage.getItem("VoiceUniversal"));
         try {
-            localStorage.setItem(tag, JSON.stringify(json));
-            $("#voiceSaveStatus").text("Saved!!! [" + tag + "]");
+            data[tag] = json;
+            localStorage.setItem("VoiceUniversal", JSON.stringify(data));
+            $("#voiceAddStatus").text("Saved!!! [" + tag + "]");
         } catch (error) {
             setCurrentAudio($('#voiceSelect').find(":selected").val());
-            $("#voiceSaveStatus").text("File size is big, not saved!!!");
+            $("#voiceAddStatus").text("File size is big, not saved!!!");
         }
     }
 
     function reset() {
         localStorage.clear();
-        $("#voiceSaveStatus").text("Refresh is coming....");
+        $("#voiceAddStatus").text("Refresh is coming....");
         setTimeout(() => {
             location.reload();
         }, 2800);
     }
 
     function getByTag(tag) {
-        return JSON.parse(localStorage.getItem(tag));
+        return JSON.parse(localStorage.getItem("VoiceUniversal"))[tag];
     }
 
     async function defaultAudio() {
         const defaultAudio = await $.get("https://43d.github.io/amqVoiceUniversal/defaultAudio.json")
-        defaultAudio.list.forEach((k) =>
-            save(k.name, k.data)
-        );
+        defaultAudio.list.forEach((k) => {
+            json = {
+                "simultaneousAllow": k.data.simultaneousAllow,
+                "volume": [k.data.volume],
+                "indicator": 0,
+                "config": "random",
+                "audio": [k.data.audio]
+            };
+            save(k.name, json);
+        });
     }
 
     return {
