@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal
 // @namespace    https://github.com/43D
-// @version      1.4.2
+// @version      1.4.3
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -81,8 +81,8 @@ function setup() {
         player.play(tags[7]);
     });
     let LevelUp = new Listener("quiz xp credit gain", (payload) => {
-        const lastGain = data.xpInfo.lastGain;
-        const xpIntoLevel = data.xpInfo.xpIntoLevel;
+        const lastGain = payload.xpInfo.lastGain;
+        const xpIntoLevel = payload.xpInfo.xpIntoLevel;
         if (lastGain > xpIntoLevel) {
             player.play(tags[8]);
         }

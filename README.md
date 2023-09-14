@@ -2,7 +2,7 @@
 
 Code based on AMQ HuTao Voice by Mxyuki/AMQ-Scripts
 
-Add custom voice-lines to your AMQ. By default Genshin's HuTao sounds are saved.
+Add personalized audio notifications for each action in AMQ. By default Genshin's HuTao sounds are saved.
 
 Salve futeba, digo, Viteira!!!
 
