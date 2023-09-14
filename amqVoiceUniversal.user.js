@@ -11,7 +11,7 @@
 
 if (document.getElementById("startPage")) return;
 
-const currentVersion = "1.4.2";
+const currentVersion = "1.4.3";
 const tags = [
     "Welcome1",
     "Welcome2",
