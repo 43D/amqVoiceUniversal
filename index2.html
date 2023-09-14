@@ -45,7 +45,7 @@
 						<input type="radio" id="replaceAudioVA" name="audioCreator" value="replace">
 						<label for="replaceAudioVA">Replace Audio</label><br>
 					</div>
-					<div style="display: flex; align-items: center;">
+					<div id="selectOptionDiv" style="display: none; align-items: center;">
 						<p style="margin: 0px; margin-right: 5px;">Select to replace:</p>
 						<select id="songListReplace" name="songListReplace"
 							style="font-size: 14pt; border-radius: 5px; background-color: #424242; color: #fff;">
@@ -184,5 +184,19 @@
 		const usedSpaceMB = usedSpace / (1024 * 1024);
 		quotaLocal.innerHTML = usedSpaceMB.toFixed(2);
 		quotaBar.style.width = (100-quota)+"%";
+
+		const radios = document.querySelectorAll('input[type="radio"][name="audioCreator"]');
+		radios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                if(event.target.value == "new"){
+					const div = document.getElementById('selectOptionDiv');
+					div.style.display = "none";
+				}else{
+					const div = document.getElementById('selectOptionDiv');
+					div.style.display = "flex";
+				}
+					
+            });
+        });
 	</script>
 </div>
