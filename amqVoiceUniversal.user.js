@@ -432,10 +432,10 @@ function Store() {
         defaultAudio.list.forEach((k) => {
             json = {
                 "simultaneousAllow": k.data.simultaneousAllow,
-                "volume": [k.data.volume],
+                "volume": k.data.volume,
                 "indicator": 0,
                 "config": "random",
-                "audio": [k.data.audio]
+                "audio": k.data.audio
             };
             save(k.name, json);
         });
