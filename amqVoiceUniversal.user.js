@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Voice Universal2
 // @namespace    https://github.com/43D
-// @version      2.0.0
+// @version      2.0.2
 // @description  Voice
 // @author       Allangamer43D
 // @match        https://animemusicquiz.com/
@@ -11,7 +11,7 @@
 
 
 if (document.getElementById("startPage")) return;
-const currentVersion = "2.0.0";
+const currentVersion = "2.0.2";
 const tags = [
     "Welcome1",
     "Welcome2",
@@ -30,7 +30,7 @@ const tags = [
 ];
 
 const modal = modalFactory();
-const storeAudio = Store();
+const storeAudio = await Store();
 const player = playAudio();
 const config = settingAudio();
 
@@ -378,12 +378,13 @@ function sourceAudio() {
     }
 }
 
-function Store() {
+async function Store() {
     const test = JSON.parse(localStorage.getItem(tags[0]));
+    const test2 = JSON.parse(localStorage.getItem("VoiceUniversal"));
     if (test)
         migrate();
-    else if (!getByTag(tags[0]))
-        defaultAudio();
+    else if (!test2)
+        await defaultAudio();
 
     function migrate() {
         let song = {};
@@ -405,6 +406,8 @@ function Store() {
 
     function save(tag, json) {
         let data = JSON.parse(localStorage.getItem("VoiceUniversal"));
+        if(!data)
+            data = {};
         try {
             data[tag] = json;
             localStorage.setItem("VoiceUniversal", JSON.stringify(data));
@@ -424,11 +427,17 @@ function Store() {
     }
 
     function getByTag(tag) {
-        return JSON.parse(localStorage.getItem("VoiceUniversal"))[tag];
+        const json = JSON.parse(localStorage.getItem("VoiceUniversal"))
+        if(json)
+            return json[tag];
+        return null;
     }
 
     async function defaultAudio() {
-        const defaultAudio = await $.get("https://43d.github.io/amqVoiceUniversal/defaultAudio.json")
+        console.log("default");
+        const defaultAudio = await $.get("https://43d.github.io/amqVoiceUniversal/defaultAudio.json");
+        console.log(defaultAudio);
+
         defaultAudio.list.forEach((k) => {
             json = {
                 "simultaneousAllow": k.data.simultaneousAllow,
